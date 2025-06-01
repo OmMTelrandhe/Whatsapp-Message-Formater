@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WhatsApp Format Preserver Options</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #25D366;
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #128C7E;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .success {
+            background-color: #e7f7ef;
+            color: #25D366;
+            display: block;
+        }
+
+        .error {
+            background-color: #ffebee;
+            color: #F15C6D;
+            display: block;
+        }
+
+        .info-text {
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        .api-link {
+            color: #128C7E;
+            text-decoration: none;
+        }
+
+        .api-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>WhatsApp Format Preserver Settings</h1>
+
+        <div class="form-group">
+            <p class="info-text">
+                This extension uses Google's Gemini API to format code. The API key is pre-configured and you don't need
+                to provide one.
+            </p>
+        </div>
+
+        <div id="status" class="status"></div>
+    </div>
+
+    <script src="options.js" type="module"></script>
+</body>
+
+</html>
