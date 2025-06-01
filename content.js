@@ -1,4 +1,3 @@
-// Create and inject styles
 const style = document.createElement("style");
 style.textContent = `
   .wfp-message-wrapper {
@@ -42,17 +41,14 @@ style.textContent = `
     color: #00a884;
   }
   
-  /* Removed .wfp-code::after style */
-  
   .wfp-markdown::after {
-    content: "M↓"; /* Kept for now, might change to a different icon if only HTML is offered */
+    content: "M↓";
     font-size: 14px;
     font-weight: bold;
   }
 
-  /* NEW: Style for the "Word" button */
   .wfp-word::after {
-    content: "Wd"; /* Or a symbol for document/rich text */
+    content: "Wd";
     font-size: 14px;
     font-weight: bold;
   }
@@ -123,60 +119,43 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Create notification element
 const notification = document.createElement("div");
 notification.className = "wfp-notification";
 document.body.appendChild(notification);
 
-// Track processed messages
 const processedMessages = new WeakSet();
 
 function processMessage(messageElement) {
   if (processedMessages.has(messageElement)) return;
 
-  // Skip if not a proper message element
   if (!isValidMessageElement(messageElement)) return;
 
-  // Find the actual message content container
   const contentContainer = findContentContainer(messageElement);
   if (!contentContainer) return;
 
-  // Create wrapper for the message
   const wrapper = document.createElement("div");
   wrapper.className = "wfp-message-wrapper";
 
-  // Insert wrapper and move message into it
   contentContainer.parentNode.insertBefore(wrapper, contentContainer);
   wrapper.appendChild(contentContainer);
 
-  // Mark as processed
   processedMessages.add(messageElement);
 
-  // Create buttons
   const buttons = document.createElement("div");
   buttons.className = "wfp-buttons";
 
-  // Removed codeButton creation
-  // const codeButton = document.createElement("button");
-  // codeButton.className = "wfp-button wfp-code";
-  // codeButton.title = "Copy as Code";
-
-  // Renamed button and title
   const wordFormatButton = document.createElement("button");
-  wordFormatButton.className = "wfp-button wfp-word"; // NEW class
-  wordFormatButton.title = "Copy as Word Format (AI)"; // NEW title
+  wordFormatButton.className = "wfp-button wfp-word";
+  wordFormatButton.title = "Copy as Word Format (AI)";
 
   const aiButton = document.createElement("button");
   aiButton.className = "wfp-button wfp-ai";
   aiButton.title = "Copy as AI-Formatted Code";
 
-  // Removed appending codeButton
-  // buttons.appendChild(codeButton);
-  buttons.appendChild(wordFormatButton); // Use new button
+  buttons.appendChild(wordFormatButton);
   buttons.appendChild(aiButton);
   wrapper.appendChild(buttons);
 
-  // Add hover effects
   wrapper.addEventListener("mouseenter", () => {
     buttons.style.opacity = "1";
   });
@@ -185,18 +164,10 @@ function processMessage(messageElement) {
     buttons.style.opacity = "0";
   });
 
-  // Removed codeButton click handler
-  // codeButton.addEventListener("click", (e) => {
-  //   e.stopPropagation();
-  //   const text = getMessageText(contentContainer);
-  //   copyAsCode(text);
-  // });
-
-  // Modified button click handler to use AI formatting for HTML
   wordFormatButton.addEventListener("click", (e) => {
     e.stopPropagation();
     const text = getMessageText(contentContainer);
-    copyAsAIFormattedHtml(text); // NEW function call
+    copyAsAIFormattedHtml(text);
   });
 
   aiButton.addEventListener("click", (e) => {
@@ -207,7 +178,6 @@ function processMessage(messageElement) {
 }
 
 function isValidMessageElement(element) {
-  // Check if element is a valid WhatsApp message
   return (
     element &&
     element.nodeType === Node.ELEMENT_NODE &&
@@ -219,10 +189,9 @@ function isValidMessageElement(element) {
 }
 
 function findContentContainer(element) {
-  // Try different content container selectors
   const selectors = [
-    'div[data-testid="msg-container"]', // New WhatsApp
-    "div.copyable-text", // Older WhatsApp
+    'div[data-testid="msg-container"]',
+    "div.copyable-text",
     "div.selectable-text",
     "div[data-pre-plain-text]",
     "div.message-in",
@@ -240,7 +209,6 @@ function findContentContainer(element) {
 }
 
 function getMessageText(element) {
-  // Get all text content while preserving line breaks
   const walker = document.createTreeWalker(
     element,
     NodeFilter.SHOW_TEXT,

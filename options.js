@@ -1,22 +1,15 @@
-// Options page script for WhatsApp Format Preserver
-
-// Import configuration module
 import { config, initConfig, updateApiKey } from "./config.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // Initialize configuration
   await initConfig();
-  // Get elements
   const apiKeyInput = document.getElementById("apiKey");
   const saveButton = document.getElementById("saveButton");
   const statusElement = document.getElementById("status");
 
-  // Load API key from config
   if (config.geminiApiKey) {
     apiKeyInput.value = config.geminiApiKey;
   }
 
-  // Save API key when button is clicked
   saveButton.addEventListener("click", () => {
     const apiKey = apiKeyInput.value.trim();
 
@@ -25,9 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // Save API key using the config module
     updateApiKey(apiKey).then(() => {
-      // Notify background script
       chrome.runtime.sendMessage(
         { action: "setApiKey", apiKey },
         (response) => {
